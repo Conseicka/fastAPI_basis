@@ -46,6 +46,17 @@ class Person(BaseModel):
     hair_color: Optional[HairColor] = Field(default = None)
     is_married: Optional[bool] = Field(default = None)
 
+    class Config:
+        schema_extra = {
+        "example":{
+        "first_name": "zack",
+        "last_name": "seneger",
+        "age": 24,
+        "hair_color": "black",
+        "is_married": False
+        }
+        }
+
 
 
 @app.get("/")
@@ -94,8 +105,9 @@ person_id: int = Path(
     gt = 0
     ),
     person: Person = Body(...),
-    location: Location = Body(...)
+    #location: Location = Body(...)
 ):
-    result = person.dict()
-    result.update(location.dict())
-    return result
+    #result = person.dict()
+    #result.update(location.dict())
+    #return result
+    return person
