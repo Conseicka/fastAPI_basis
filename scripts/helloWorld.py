@@ -9,8 +9,14 @@ from fastapi import FastAPI
 from fastapi import Body, Query, Path
 
 #uvn helloWorld:app --reload
-
 app = FastAPI()
+
+
+class Location(BaseModel):
+    city: str
+    state: str
+    country: str
+
 
 #Models
 
@@ -59,3 +65,18 @@ def show_person(
         )
     ):
     return {person_id: "It exists!"}
+
+@app.put("/person/{person_id}")
+def update_person(
+person_id: int = Path(
+    ...,
+    title = "Person ID",
+    description = "This is the person ID",
+    gt = 0
+    ),
+    person: Person = Body(...),
+    location: Location = Body(...)
+):
+    result = person.dict()
+    result.update(location.dict())
+    return result
