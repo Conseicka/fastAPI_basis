@@ -6,7 +6,7 @@ from pydantic import BaseModel
 
 #FastAPI
 from fastapi import FastAPI
-from fastapi import Body
+from fastapi import Body, Query
 
 #uvn helloWorld:app --reload
 
@@ -32,3 +32,11 @@ def home():
 @app.post("/persona/new")
 def create_preson(person: Person = Body(...)):
     return person
+
+@app.get("/person/detail")
+def show_person(
+    name: Optional[str] = Query(None, min_length = 1, max_length = 50),
+    age: str = Query(...)
+
+    ):
+    return {name : age}
