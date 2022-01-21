@@ -12,7 +12,9 @@ from fastapi import Body, Query, Path
 
 #uvn helloWorld:app --reload
 app = FastAPI()
-
+#OpenAPI: conjunto de reglas para definir que una api esta bien construida
+#Path parameter: este va entre llaves {xxxx}
+#Query parameters: se usa para enviar informacion que no es obligatoria
 class HairColor(Enum):
     white = "white"
     brown = "brown"
@@ -58,8 +60,9 @@ class Person(BaseModel):
         }
 
 
-
+#Path operator decorator
 @app.get("/")
+#Path operation function
 def home():
     return{"hello": "world"}
 
